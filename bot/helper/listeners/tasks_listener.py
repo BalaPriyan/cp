@@ -398,16 +398,16 @@ class MirrorLeechListener:
         lmsg = f'<b><i>{escape(name)}</i></b>'
         lmsg += f'\n<b>cc</b>: <i>{self.tag}</i>'
         gmsg = f'Hey <b>{self.tag}</b>!\nYour job is done.'
-        msg = f'\n\n<code>Size            </code>: {get_readable_file_size(size)}'
-        msg += f"\n<code>Elapsed         </code>: {get_readable_time(time() - self.extra_details['startTime'])}"
-        msg += f"\n<code>Upload          </code>: {self.extra_details['mode']}"
-        _msg = '' if rclonePath == '' else f'\n\n<code>Path            </code>: {rclonePath}'
+        msg = f'\n\n￫<code>Size            </code>: {get_readable_file_size(size)}'
+        msg += f"\n￫<code>Elapsed         </code>: {get_readable_time(time() - self.extra_details['startTime'])}"
+        msg += f"\n￫<code>Upload          </code>: {self.extra_details['mode']}"
+        _msg = '' if rclonePath == '' else f'\n\n￫<code>Path            </code>: {rclonePath}'
         msg_ = '\n\n<b><i>Links has been sent in your DM.</i></b>'
         buttons = ButtonMaker()
         if self.isLeech:
-            msg += f'\n<code>Total Files     </code>: {folders}\n'
+            msg += f'\n￫<code>Total Files     </code>: {folders}\n'
             if mime_type != 0:
-                msg += f'<code>Corrupted Files</code> : {mime_type}\n'
+                msg += f'￫<code>Corrupted Files</code> : {mime_type}\n'
             msg_ = '\n<b><i>Files has been sent in your DM.</i></b>'
             if not self.dmMessage:
                 if not files:
@@ -428,6 +428,10 @@ class MirrorLeechListener:
                         if self.logMessage:
                             await sendMessage(self.logMessage, lmsg + msg + fmsg)
                         await sendMessage(self.message, lmsg + msg + fmsg)
+                    btn = ButtonMaker()
+                    if config_dict['DM_MODE'] or user_dict.get('bot_pm'):
+                        if self.isSuperGroup:
+                           btn.ibutton('View PM', f"wzmlx {user_id} botpm", 'header')
             else:
                 if not files:
                     await sendMessage(self.message, gmsg + msg + msg_)
@@ -438,6 +442,8 @@ class MirrorLeechListener:
                     await sendMessage(self.message, gmsg + msg + msg_)
                     if self.logMessage:
                         await sendMessage(self.logMessage, lmsg + msg)
+                    btn = extra_btns(btn)
+                    await sendMessage(self.message, btn.build_menu(1))
                 else:
                     fmsg = '\n'
                     for index, (link, name) in enumerate(files.items(), start=1):
