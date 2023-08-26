@@ -101,7 +101,7 @@ async def get_user_settings(from_user):
     buttons.ibutton("Close", f"userset {user_id} close")
 
     text = f"""
-<u>User Settings of {name}</u>
+⚙️<u>User Settings of {name}</u>
 
 <code>TG Premium Status:</code> <b>{IS_PREMIUM_USER}</b>
 
