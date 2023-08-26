@@ -429,9 +429,11 @@ class MirrorLeechListener:
                             await sendMessage(self.logMessage, lmsg + msg + fmsg)
                         await sendMessage(self.message, lmsg + msg + fmsg)
                     btn = ButtonMaker()
-                    if config_dict['DM_MODE'] or user_dict.get('bot_pm'):
+                    if config_dict['DM_MODE'] or user_dict.get('dmMessage'):
                         if self.isSuperGroup:
-                           btn.ibutton('View PM', f"wzmlx {user_id} botpm", 'header')
+                           btn.ibutton('View PM', f"{user_id} dmMessage", 'header')
+                        btn = extra_btns(btn)
+                        await sendMessage(self.message, btn.build_menu(1))
             else:
                 if not files:
                     await sendMessage(self.message, gmsg + msg + msg_)
@@ -442,8 +444,7 @@ class MirrorLeechListener:
                     await sendMessage(self.message, gmsg + msg + msg_)
                     if self.logMessage:
                         await sendMessage(self.logMessage, lmsg + msg)
-                    btn = extra_btns(btn)
-                    await sendMessage(self.message, btn.build_menu(1))
+                    
                 else:
                     fmsg = '\n'
                     for index, (link, name) in enumerate(files.items(), start=1):
