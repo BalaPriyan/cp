@@ -37,6 +37,7 @@ class _BotCommands:
         self.BtSelectCommand = f'btsel{CMD_SUFFIX}'
         self.RssCommand = f'rss{CMD_SUFFIX}'
         self.CategorySelect = f'catsel{CMD_SUFFIX}'
+        self.BroadcastCommand = [f'broadcast{CMD_SUFFIX}', f'bc{CMD_SUFFIX}']
         self.RmdbCommand = f'rmdb{CMD_SUFFIX}'
 
 BotCommands = _BotCommands()
