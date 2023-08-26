@@ -116,8 +116,8 @@ def get_progress_bar_string(pct):
         pct = float(pct.strip('%'))
     p = min(max(pct, 0), 100)
     cFull = int(p // 10)
-    p_str = '█' * cFull
-    p_str += '▒' * (10 - cFull)
+    p_str = '⬢' * cFull
+    p_str += '⬡' * (10 - cFull)
     return f"{p_str}"
 
 
@@ -257,7 +257,7 @@ async def fstats(_, query):
         elif status == MirrorStatus.STATUS_SEEDING:
             seed += 1
 
-    stat = f'_______Zee Bot Info_______\n\n'\
+    stat = f'_______Bot Info_______\n\n'\
            f'C: {cpup}% | R: {ramp}% | D: {disk}%\n\n' \
            f'T  : {totl} | F  : {free} | Q : {inqu}\n' \
            f'DL: {dwld} | UL: {upld} | SD: {seed}\n' \
